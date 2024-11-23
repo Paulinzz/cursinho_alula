@@ -1,4 +1,7 @@
 import express from "express"
+import connectaraoBanco from "./scr/config/dbconfig.js";
+
+const conexao = await connectaraoBanco(process.env.STIRNG_CONEXAO)
 
 const posts = [
     
@@ -31,13 +34,20 @@ app.get("/posts", (req, res) => {
     res.status(200).json(posts);
 });
 
+async function gettodosospost(){
+    const db = conexao.db("imersao-instabytes")
+    const colecao = db.collection(posts)
+    return colecao.find().toArray()
+}
+
 function buscarPostPorID(id){
     return posts.findIndex((post) => {
         return post.id == Number(id)
     })
 }
 
-app.get("/posts/:id", (req, res) => {
+app.get("/posts/:id", async(req, res) => {
+    const posts = await gettodosospost()
     const index = buscarPostPorID(req.params.id)
-    res.status(200).json(posts[index]);
+    res.status(200).json(posts);
 });

@@ -1,0 +1,14 @@
+{
+  "name": "name",
+  "description": "description",
+  "authors": "author",
+  "version": "1.0.0",
+  "main": "pathToMain",
+  "scripts": {
+    "dev": "node --watch --env file=.env server.js",
+    "test": ""
+  },
+  "dependencies": {
+    "mongodb": "^6.11.0"
+  }
+}
